@@ -1,6 +1,3 @@
--- Created by Vertabelo (http://vertabelo.com)
--- Last modification date: 2019-10-26 22:17:56.581
-
 -- custom types
 -- Type: state
 CREATE TYPE state AS ENUM ('to do', 'done', 'doing');
@@ -8,62 +5,69 @@ CREATE TYPE state AS ENUM ('to do', 'done', 'doing');
 -- tables
 -- Table: goal
 CREATE TABLE muskify.goal (
-    id int  NOT NULL,
+    id serial  NOT NULL,
     name text  NOT NULL,
     description int  NULL,
     user_id int  NOT NULL,
+    CONSTRAINT goal_ak_1 UNIQUE (name) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT goal_pk PRIMARY KEY (id)
 );
 
 -- Table: goal_tags
 CREATE TABLE muskify.goal_tags (
-    id int  NOT NULL,
+    id serial  NOT NULL,
     goal_id int  NOT NULL,
     tag_id int  NOT NULL,
+    CONSTRAINT goal_tags_ak_1 UNIQUE (goal_id, tag_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT goal_tags_pk PRIMARY KEY (id)
 );
 
 -- Table: tag
 CREATE TABLE muskify.tag (
-    id int  NOT NULL,
+    id serial  NOT NULL,
     name text  NOT NULL,
     user_id int  NOT NULL,
+    CONSTRAINT tag_ak_1 UNIQUE (name, user_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT tag_pk PRIMARY KEY (id)
 );
 
 -- Table: task
 CREATE TABLE muskify.task (
-    id int  NOT NULL,
+    id serial  NOT NULL,
     name text  NOT NULL,
     description int  NULL,
     date date  NOT NULL,
     state text  NOT NULL,
     user_id int  NOT NULL,
+    CONSTRAINT task_ak_1 UNIQUE (name, date) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT task_pk PRIMARY KEY (id)
 );
 
 -- Table: task_tags
 CREATE TABLE muskify.task_tags (
-    id int  NOT NULL,
+    id serial  NOT NULL,
     task_id int  NOT NULL,
     tag_id int  NOT NULL,
+    CONSTRAINT task_tags_ak_1 UNIQUE (task_id, tag_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT task_tags_pk PRIMARY KEY (id)
 );
 
 -- Table: tasks_goals
 CREATE TABLE muskify.tasks_goals (
-    id int  NOT NULL,
+    id serial  NOT NULL,
     goal_id int  NOT NULL,
     task_id int  NOT NULL,
+    CONSTRAINT tasks_goals_ak_1 UNIQUE (goal_id, task_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT tasks_goals_pk PRIMARY KEY (id)
 );
 
 -- Table: user
 CREATE TABLE muskify."user" (
-    id int  NOT NULL,
+    id serial  NOT NULL,
     username text  NOT NULL,
     password text  NOT NULL,
     email text  NOT NULL,
+    CONSTRAINT user_ak_1 UNIQUE (username, password, email) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT id PRIMARY KEY (id)
 );
 
@@ -141,4 +145,3 @@ ALTER TABLE muskify.tasks_goals ADD CONSTRAINT tasks_goals_task
 ;
 
 -- End of file.
-
