@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "env-cmd -f ./.env.development nodemon --exec babel-node app/index.js",
-    "startprod": "env-cmd -f ./.env nodemon --exec babel-node app/index.js"
+    "start": "env-cmd -f ./.env.development nodemon --watch app --exec babel-node app/index.js",
+    "startprod": "env-cmd -f ./.env nodemon --watch app --exec babel-node app/index.js"
   },
   "repository": {
     "type": "git",
