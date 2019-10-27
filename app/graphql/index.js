@@ -10,28 +10,28 @@ const typeDefs = `
     },
     type User {
         id: Int,
-        username: String!,
-        password: String!,
-        email: String!,
+        username: String,
+        password: String,
+        email: String,
         tasks: [Task],
         goals: [Goal],
         tags: [Tag]
     },
     type Goal {
         id: Int,
-        name: String!,
+        name: String,
         description: String,
-        user_id: Int!,
+        user_id: Int,
         user: User,
         tags: [Tag],
         tasks: [Task]
     },
     type Task {
         id: Int,
-        name: String!,
+        name: String,
         description: String,
-        date: String!,
-        state: String!,
+        date: String,
+        state: String,
         user_id: Int,
         user: User,
         tags: [Tag],
@@ -39,7 +39,7 @@ const typeDefs = `
     },
     type Tag {
         id: Int,
-        name: String!,
+        name: String,
         user: User,
         tasks: [Task],
         goals: [Goal]
