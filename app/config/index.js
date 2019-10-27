@@ -1,1 +1,1 @@
-export { default as Pool } from './ConnectionPool';
+export { default as Pool } from './ConnectionPool'
