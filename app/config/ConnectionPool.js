@@ -11,6 +11,7 @@ const Pool = () => {
             user: process.env.PG_USER, 
             database: process.env.PG_DATABASE, 
             password: process.env.PG_PASSWORD, 
+            connectionTimeoutMillis : 5000,
             ssl: true
         });
 

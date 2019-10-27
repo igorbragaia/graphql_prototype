@@ -11,7 +11,7 @@ INSERT INTO muskify.task (name, date, state, user_id) VALUES
     ('Ir na academia', to_date('2019-10-22', 'YYYY-MM-DD'), 'to do', 1),
     ('Fazer lista 1 até exercício 8', to_date('2019-10-22', 'YYYY-MM-DD'), 'doing', 1),
     ('Fazer lista 2 física', to_date('2019-10-22', 'YYYY-MM-DD'), 'done', 1),
-    ('Fazer lista 2 física', to_date('2019-10-23', 'YYYY-MM-DD'), 'to do', 1);
+    ('Fazer lista 3 física', to_date('2019-10-23', 'YYYY-MM-DD'), 'to do', 1);
 
 INSERT INTO muskify.tasks_goals (goal_id, task_id) VALUES 
     (1, 2),
