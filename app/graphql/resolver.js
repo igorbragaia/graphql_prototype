@@ -1,64 +1,56 @@
 import {
-    user_data, 
-    tasks_data, 
-    tags_data, 
-    goals_data, 
-    goals_data_from_task, 
-    tags_data_from_task,
-    tasks_data_from_goal,
-    tags_data_from_goal,
-    tasks_data_from_tag,
-    goals_data_from_tag
+    simpleQuery,
+    innerJoinQuery,
 } from './model'
 
 export default {
     Query: {
         users: async ( root, args, context ) => {
-            return await user_data(args || {})
+            return await simpleQuery( args || {}, 'user' )
         }
     },
     User: {
         tasks: async ( root, args, context ) => {
-            return await tasks_data({ user_id: root.id })
+            return await simpleQuery( { user_id: root.id }, 'task' )
         },
         tags: async ( root, args, context ) => {
-            return await tags_data({ user_id: root.id })
+            return await simpleQuery( { user_id: root.id }, 'tag' )
         },
         goals: async ( root, args, context ) => {
-            return await goals_data({ user_id: root.id })
+            return await simpleQuery( { user_id: root.id }, 'goal' )
         }    
     },
     Goal: {
         user: async ( root, args, context ) => {
-            return await user_data({ id: root.user_id }).then( res =>  res !== null ? res[0] : null )
+            return await simpleQuery( { id: root.user_id }, 'user' ).then( res =>  res !== null ? res[0] : null )
         },
         tags: async ( root, args, context ) => {
-            return await tags_data_from_goal({ goal_id: root.id })            
+            return await innerJoinQuery( { goal_id: root.id }, 'tag', 'goal_tags', 'tag_id' )            
         },
         tasks: async ( root, args, context ) => {
-            return await tasks_data_from_goal({ goal_id: root.id })
+            return await innerJoinQuery( { goal_id: root.id }, 'task', 'tasks_goals', 'task_id' )            
         }
     }, 
     Task: {
         user: async ( root, args, context ) => {
-            return await user_data({ id: root.user_id }).then( res =>  res !== null ? res[0] : null )
+            return await simpleQuery( { id: root.user_id }, 'user' ).then( res =>  res !== null ? res[0] : null )
         },
         tags: async ( root, args, context ) => {
-            return await tags_data_from_task({ task_id: root.id })            
+            return await innerJoinQuery( { task_id: root.id }, 'tag', 'task_tags', 'tag_id' )            
         },
         goals: async ( root, args, context ) => {
-            return await goals_data_from_task({ task_id: root.id })
-        },
+            return await innerJoinQuery( { task_id: root.id }, 'goal', 'tasks_goals', 'goal_id' )            
+        }
     },
     Tag: {
         user: async ( root, args, context ) => {
-            return await user_data({ id: root.user_id }).then( res =>  res !== null ? res[0] : null )
+            return await simpleQuery( { id: root.user_id }, 'user' ).then( res =>  res !== null ? res[0] : null )
         },
         tasks: async ( root, args, context ) => {
-            return await tasks_data_from_tag({ tag_id: root.id })
+            return await innerJoinQuery( { tag_id: root.id }, 'task', 'task_tags', 'task_id' )            
         },
         goals: async ( root, args, context ) => {
-            return await goals_data_from_tag({ goal_id: root.id })            
-        },
+            return await innerJoinQuery( { tag_id: root.id }, 'goal', 'goal_tags', 'goal_id' )            
+        }
     }
 }
