@@ -5,6 +5,11 @@ import resolver from './resolver'
 const typeDefs = `
     type Query {
         users(id: Int): [User],
+        newUser(
+            email: String!,
+            password: String!,
+            username: String!
+        ): User
     },
     type User {
         id: Int,
@@ -68,7 +73,8 @@ const typeDefs = `
 
 const resolvers = {
     Query: {
-        users: resolver.Query.users
+        users: resolver.Query.users,
+        newUser: resolver.Query.newUser,
     },
     User: {
         tasks: resolver.User.tasks,
@@ -76,25 +82,25 @@ const resolvers = {
         goals: resolver.User.goals,
         newTask: resolver.User.newTask,
         newGoal: resolver.User.newGoal,
-        newTag: resolver.User.newTag
+        newTag: resolver.User.newTag,
     },
     Goal: {
         user: resolver.Goal.user,
         tags: resolver.Goal.tags,
         tasks: resolver.Goal.tasks,
         relateTask: resolver.Goal.relateTask,
-        relateTag: resolver.Goal.relateTag
+        relateTag: resolver.Goal.relateTag,
     }, 
     Task: {
         user: resolver.Task.user,
         tags: resolver.Task.tags,
         goals: resolver.Task.goals,
-        relateTag: resolver.Task.relateTag
+        relateTag: resolver.Task.relateTag,
     },
     Tag: {
         user: resolver.Tag.user,
         tasks: resolver.Tag.tasks,
-        goals: resolver.Tag.goals
+        goals: resolver.Tag.goals,
     }
 }
 

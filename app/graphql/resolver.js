@@ -8,6 +8,9 @@ export default {
     Query: {
         users: async ( root, args, context ) => {
             return simpleQuery( args || {}, 'user' )
+        },
+        newUser: async ( root, args, context ) => {
+            return simpleInsertQuery( args, 'user' ).then( res =>  res !== null ? res[0] : null )
         }
     },
     User: {
