@@ -1,0 +1,14 @@
+type Goal {
+    id: Int,
+    name: String,
+    description: String,
+    relateTag (
+        tag_id: Int!
+    ): Boolean,
+    relateTask (
+        task_id: Int!
+    ): Boolean,
+    user: User,
+    tags: [Tag],
+    tasks: [Task]
+}
