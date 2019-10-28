@@ -41,7 +41,7 @@ export default {
             return innerJoinQuery( { goal_id: root.id }, 'tag', 'goal_tag', 'tag_id' )            
         },
         tasks: async ( root, args, context ) => {
-            return innerJoinQuery( { goal_id: root.id }, 'task', 'task_', 'task_id' )            
+            return innerJoinQuery( { goal_id: root.id }, 'task', 'task_goal', 'task_id' )            
         },
         relateTask: async ( root, args, context ) => {
             return simpleInsertQuery( { goal_id: root.id, task_id: args.task_id }, 'task_goal' ).then( res =>  res !== null && res.length > 0 )
