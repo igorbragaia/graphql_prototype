@@ -62,6 +62,9 @@ export default {
         },
         relateTag: async ( root, args, context ) => {
             return simpleInsertQuery( { task_id: root.id, tag_id: args.tag_id }, 'task_tags' ).then( res =>  res !== null && res.length > 0 )
+        },
+        relateGoal: async ( root, args, context ) => {
+            return simpleInsertQuery( { task_id: root.id, goal_id: args.goal_id }, 'tasks_goals' ).then( res =>  res !== null && res.length > 0 )
         }
     },
     Tag: {

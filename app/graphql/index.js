@@ -62,6 +62,9 @@ const typeDefs = `
         relateTag (
             tag_id: Int!
         ): Boolean,
+        relateGoal (
+            goal_id: Int!
+        ): Boolean,
         user: User,
         tags: [Tag],
         goals: [Goal]
@@ -100,6 +103,7 @@ const resolvers = {
         tags: resolver.Task.tags,
         goals: resolver.Task.goals,
         relateTag: resolver.Task.relateTag,
+        relateGoal: resolver.Task.relateGoal,
     },
     Tag: {
         user: resolver.Tag.user,
