@@ -6,9 +6,9 @@
   "scripts": {
     "clean": "rm -rf build && mkdir build",
     "build-app": "babel -d ./build ./app -s",
-    "build": "npm run clean && npm run build-app",
-    "start": "node ./build/index.js",
-    "start-dev": "env-cmd -f ./.env nodemon --watch app --exec babel-node app/index.js"
+    "build": "echo 'BUILD' && npm run clean && npm run build-app",
+    "start": "echo 'START' && node ./build/index.js",
+    "start-dev": "echo 'START DEV' && env-cmd -f ./.env nodemon --watch app --exec babel-node app/index.js"
   },
   "repository": {
     "type": "git",
