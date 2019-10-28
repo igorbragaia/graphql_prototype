@@ -9,7 +9,7 @@ CREATE TABLE muskify.goal (
     name text  NOT NULL,
     description text  NULL,
     user_id int  NOT NULL,
-    CONSTRAINT goal_ak_1 UNIQUE (name) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT goal_ak_1 UNIQUE (name, user_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT goal_pk PRIMARY KEY (id)
 );
 
@@ -39,7 +39,7 @@ CREATE TABLE muskify.task (
     date date  NOT NULL,
     state state  NOT NULL,
     user_id int  NOT NULL,
-    CONSTRAINT task_ak_1 UNIQUE (name, date) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT task_ak_1 UNIQUE (name, date, user_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT task_pk PRIMARY KEY (id)
 );
 
