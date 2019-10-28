@@ -29,11 +29,15 @@ const typeDefs = `
         newTag (
             name: String!
         ): Tag,
-        tasks: [Task],
+        tasks (
+            id: Int
+        ): [Task],
         goals (
             id: Int
         ): [Goal],
-        tags: [Tag]
+        tags (
+            id: Int
+        ): [Tag]
     },
     type Goal {
         id: Int,

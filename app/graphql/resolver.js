@@ -15,10 +15,10 @@ export default {
     },
     User: {
         tasks: async ( root, args, context ) => {
-            return simpleQuery( { user_id: root.id }, 'task' )
+            return simpleQuery( { user_id: root.id, ...args }, 'task' )
         },
         tags: async ( root, args, context ) => {
-            return simpleQuery( { user_id: root.id }, 'tag' )
+            return simpleQuery( { user_id: root.id, ...args }, 'tag' )
         },
         goals: async ( root, args, context ) => {
             return simpleQuery( { user_id: root.id, ...args }, 'goal' )

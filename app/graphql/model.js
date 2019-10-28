@@ -6,14 +6,8 @@ export const simpleInsertQuery = ( args, responseTable ) => {
         VALUES (${Object.keys(args).map((val, i) => `$${i+1}`).join(", ")})
         RETURNING *
     `, Object.values(args))
-    .then(res => {
-        console.log(res)
-        return res.rows
-    })
-    .catch(err => {
-        console.log(err)
-        return null
-    })
+    .then(res => res.rows)
+    .catch(() => null)
 }
 
 export const simpleQuery = ( args, responseTable ) => {
