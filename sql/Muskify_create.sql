@@ -7,19 +7,19 @@ CREATE TYPE state AS ENUM ('to do', 'done', 'doing');
 CREATE TABLE muskify.goal (
     id serial  NOT NULL,
     name text  NOT NULL,
-    description int  NULL,
+    description text  NULL,
     user_id int  NOT NULL,
     CONSTRAINT goal_ak_1 UNIQUE (name) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT goal_pk PRIMARY KEY (id)
 );
 
--- Table: goal_tags
-CREATE TABLE muskify.goal_tags (
+-- Table: goal_tag
+CREATE TABLE muskify.goal_tag (
     id serial  NOT NULL,
     goal_id int  NOT NULL,
     tag_id int  NOT NULL,
     CONSTRAINT goal_tags_ak_1 UNIQUE (goal_id, tag_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
-    CONSTRAINT goal_tags_pk PRIMARY KEY (id)
+    CONSTRAINT goal_tag_pk PRIMARY KEY (id)
 );
 
 -- Table: tag
@@ -35,7 +35,7 @@ CREATE TABLE muskify.tag (
 CREATE TABLE muskify.task (
     id serial  NOT NULL,
     name text  NOT NULL,
-    description int  NULL,
+    description text  NULL,
     date date  NOT NULL,
     state text  NOT NULL,
     user_id int  NOT NULL,
@@ -43,22 +43,22 @@ CREATE TABLE muskify.task (
     CONSTRAINT task_pk PRIMARY KEY (id)
 );
 
--- Table: task_tags
-CREATE TABLE muskify.task_tags (
-    id serial  NOT NULL,
-    task_id int  NOT NULL,
-    tag_id int  NOT NULL,
-    CONSTRAINT task_tags_ak_1 UNIQUE (task_id, tag_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
-    CONSTRAINT task_tags_pk PRIMARY KEY (id)
-);
-
--- Table: tasks_goals
-CREATE TABLE muskify.tasks_goals (
+-- Table: task_goal
+CREATE TABLE muskify.task_goal (
     id serial  NOT NULL,
     goal_id int  NOT NULL,
     task_id int  NOT NULL,
     CONSTRAINT tasks_goals_ak_1 UNIQUE (goal_id, task_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
-    CONSTRAINT tasks_goals_pk PRIMARY KEY (id)
+    CONSTRAINT task_goal_pk PRIMARY KEY (id)
+);
+
+-- Table: task_tag
+CREATE TABLE muskify.task_tag (
+    id serial  NOT NULL,
+    task_id int  NOT NULL,
+    tag_id int  NOT NULL,
+    CONSTRAINT task_tags_ak_1 UNIQUE (task_id, tag_id) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT task_tag_pk PRIMARY KEY (id)
 );
 
 -- Table: user
@@ -72,16 +72,16 @@ CREATE TABLE muskify."user" (
 );
 
 -- foreign keys
--- Reference: goal_tags_goal (table: goal_tags)
-ALTER TABLE muskify.goal_tags ADD CONSTRAINT goal_tags_goal
+-- Reference: goal_tags_goal (table: goal_tag)
+ALTER TABLE muskify.goal_tag ADD CONSTRAINT goal_tags_goal
     FOREIGN KEY (goal_id)
     REFERENCES muskify.goal (id)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: goal_tags_tag (table: goal_tags)
-ALTER TABLE muskify.goal_tags ADD CONSTRAINT goal_tags_tag
+-- Reference: goal_tags_tag (table: goal_tag)
+ALTER TABLE muskify.goal_tag ADD CONSTRAINT goal_tags_tag
     FOREIGN KEY (tag_id)
     REFERENCES muskify.tag (id)  
     NOT DEFERRABLE 
@@ -104,16 +104,16 @@ ALTER TABLE muskify.tag ADD CONSTRAINT tag_user
     INITIALLY IMMEDIATE
 ;
 
--- Reference: task_tags_tag (table: task_tags)
-ALTER TABLE muskify.task_tags ADD CONSTRAINT task_tags_tag
+-- Reference: task_tags_tag (table: task_tag)
+ALTER TABLE muskify.task_tag ADD CONSTRAINT task_tags_tag
     FOREIGN KEY (tag_id)
     REFERENCES muskify.tag (id)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: task_tags_task (table: task_tags)
-ALTER TABLE muskify.task_tags ADD CONSTRAINT task_tags_task
+-- Reference: task_tags_task (table: task_tag)
+ALTER TABLE muskify.task_tag ADD CONSTRAINT task_tags_task
     FOREIGN KEY (task_id)
     REFERENCES muskify.task (id)  
     NOT DEFERRABLE 
@@ -128,16 +128,16 @@ ALTER TABLE muskify.task ADD CONSTRAINT task_user
     INITIALLY IMMEDIATE
 ;
 
--- Reference: tasks_goals_goal (table: tasks_goals)
-ALTER TABLE muskify.tasks_goals ADD CONSTRAINT tasks_goals_goal
+-- Reference: tasks_goals_goal (table: task_goal)
+ALTER TABLE muskify.task_goal ADD CONSTRAINT tasks_goals_goal
     FOREIGN KEY (goal_id)
     REFERENCES muskify.goal (id)  
     NOT DEFERRABLE 
     INITIALLY IMMEDIATE
 ;
 
--- Reference: tasks_goals_task (table: tasks_goals)
-ALTER TABLE muskify.tasks_goals ADD CONSTRAINT tasks_goals_task
+-- Reference: tasks_goals_task (table: task_goal)
+ALTER TABLE muskify.task_goal ADD CONSTRAINT tasks_goals_task
     FOREIGN KEY (task_id)
     REFERENCES muskify.task (id)  
     NOT DEFERRABLE 
