@@ -1,5 +1,15 @@
 import { Pool } from '~/app/config'
 
+export const simpleInsertQuery = ( args, responseTable ) => {
+    return Pool().query(`
+        INSERT INTO muskify.${responseTable} (${Object.keys(args)}) 
+        VALUES (${Object.keys(args).map((val, i) => `$${i+1}`)})
+        RETURNING *
+    `, Object.values(args))
+    .then(res => res.rows)
+    .catch(() => null)
+}
+
 export const simpleQuery = ( args, responseTable ) => {
     if(Object.keys(args).length)
         return Pool().query(`

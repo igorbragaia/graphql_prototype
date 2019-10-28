@@ -3,8 +3,6 @@ import express_graphql from 'express-graphql'
 import resolver from './resolver'
 
 const typeDefs = `
-    scalar JSONObject
-
     type Query {
         users(id: Int): [User],
     },
@@ -13,6 +11,19 @@ const typeDefs = `
         username: String,
         password: String,
         email: String,
+        newTask (
+            name: String!,
+            description: String,
+            date: String!,
+            state: String!,
+        ): Task,
+        newGoal (
+            name: String!,
+            description: String!,
+        ): Goal,
+        newTag (
+            name: String!
+        ): Tag,
         tasks: [Task],
         goals: [Goal],
         tags: [Tag]
@@ -43,7 +54,7 @@ const typeDefs = `
         user: User,
         tasks: [Task],
         goals: [Goal]
-    },
+    }
 `
 
 const resolvers = {
@@ -53,7 +64,10 @@ const resolvers = {
     User: {
         tasks: resolver.User.tasks,
         tags: resolver.User.tags,
-        goals: resolver.User.goals
+        goals: resolver.User.goals,
+        newTask: resolver.User.newTask,
+        newGoal: resolver.User.newGoal,
+        newTag: resolver.User.newTag
     },
     Goal: {
         user: resolver.Goal.user,

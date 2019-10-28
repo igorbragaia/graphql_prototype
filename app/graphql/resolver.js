@@ -1,6 +1,7 @@
 import {
     simpleQuery,
     innerJoinQuery,
+    simpleInsertQuery,
 } from './model'
 
 export default {
@@ -18,7 +19,16 @@ export default {
         },
         goals: async ( root, args, context ) => {
             return simpleQuery( { user_id: root.id }, 'goal' )
-        }    
+        },
+        newTask: async ( root, args, context ) => {
+            return simpleInsertQuery( { user_id: root.id, ...args}, 'task' ).then( res =>  res !== null ? res[0] : null )
+        },
+        newGoal: async ( root, args, context ) => {
+            return simpleInsertQuery( { user_id: root.id, ...args}, 'goal' ).then( res =>  res !== null ? res[0] : null )
+        },
+        newTag: async ( root, args, context ) => {
+            return simpleInsertQuery( { user_id: root.id, ...args }, 'tag' ).then( res =>  res !== null ? res[0] : null )
+        }
     },
     Goal: {
         user: async ( root, args, context ) => {
