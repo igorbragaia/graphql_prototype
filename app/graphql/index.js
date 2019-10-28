@@ -15,23 +15,31 @@ const typeDefs = `
             name: String!,
             description: String,
             date: String!,
-            state: String!,
+            state: String!
         ): Task,
         newGoal (
             name: String!,
-            description: String,
+            description: String
         ): Goal,
         newTag (
             name: String!
         ): Tag,
         tasks: [Task],
-        goals: [Goal],
+        goals (
+            id: Int
+        ): [Goal],
         tags: [Tag]
     },
     type Goal {
         id: Int,
         name: String,
         description: String,
+        relateTag (
+            tag_id: Int!
+        ): Boolean,
+        relateTask (
+            task_id: Int!
+        ): Boolean,
         user: User,
         tags: [Tag],
         tasks: [Task]
@@ -42,6 +50,9 @@ const typeDefs = `
         description: String,
         date: String,
         state: String,
+        relateTag (
+            tag_id: Int!
+        ): Boolean,
         user: User,
         tags: [Tag],
         goals: [Goal]
@@ -71,11 +82,14 @@ const resolvers = {
         user: resolver.Goal.user,
         tags: resolver.Goal.tags,
         tasks: resolver.Goal.tasks,
+        relateTask: resolver.Goal.relateTask,
+        relateTag: resolver.Goal.relateTag
     }, 
     Task: {
         user: resolver.Task.user,
         tags: resolver.Task.tags,
-        goals: resolver.Task.goals
+        goals: resolver.Task.goals,
+        relateTag: resolver.Task.relateTag
     },
     Tag: {
         user: resolver.Tag.user,
