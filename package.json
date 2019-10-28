@@ -7,7 +7,7 @@
     "clean": "rm -rf build && mkdir build",
     "build-app": "babel -d ./build ./app -s",
     "build": "npm run clean && npm run build-app",
-    "start": "npm run build && env-cmd -f ./.env node ./build/index.js",
+    "start": "env-cmd -f ./.env node ./build/index.js",
     "startdev": "env-cmd -f ./.env nodemon --watch app --exec babel-node app/index.js"
   },
   "repository": {
