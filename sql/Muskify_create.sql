@@ -37,7 +37,7 @@ CREATE TABLE muskify.task (
     name text  NOT NULL,
     description text  NULL,
     date date  NOT NULL,
-    state text  NOT NULL,
+    state state  NOT NULL,
     user_id int  NOT NULL,
     CONSTRAINT task_ak_1 UNIQUE (name, date) NOT DEFERRABLE  INITIALLY IMMEDIATE,
     CONSTRAINT task_pk PRIMARY KEY (id)
