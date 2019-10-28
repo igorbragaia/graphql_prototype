@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "env-cmd -f ./.env nodemon --watch app --exec babel-node app/index.js",
-    "heroku-prebuild": "rm -rf node_modules",
+    "heroku-prebuild": "rm -rf node_modules"
   },
   "repository": {
     "type": "git",
