@@ -1,8 +1,0 @@
-type Query {
-    users(id: Int): [User],
-    newUser(
-        email: String!,
-        password: String!,
-        username: String!
-    ): User
-}

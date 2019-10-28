@@ -1,7 +1,0 @@
-type Tag {
-    id: Int,
-    name: String,
-    user: User,
-    tasks: [Task],
-    goals: [Goal]
-}
