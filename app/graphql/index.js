@@ -19,7 +19,7 @@ const typeDefs = `
         ): Task,
         newGoal (
             name: String!,
-            description: String!,
+            description: String,
         ): Goal,
         newTag (
             name: String!
@@ -32,7 +32,6 @@ const typeDefs = `
         id: Int,
         name: String,
         description: String,
-        user_id: Int,
         user: User,
         tags: [Tag],
         tasks: [Task]
@@ -43,7 +42,6 @@ const typeDefs = `
         description: String,
         date: String,
         state: String,
-        user_id: Int,
         user: User,
         tags: [Tag],
         goals: [Goal]
