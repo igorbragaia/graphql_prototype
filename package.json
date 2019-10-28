@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "env-cmd -f ./.env nodemon --watch app --exec babel-node app/index.js"
+    "clean": "rm -rf build && mkdir build",
+    "build-app": "babel -d ./build ./app -s",
+    "build": "npm run clean && npm run build-app",
+    "start": "npm run build && env-cmd -f ./.env node ./build/index.js",
+    "startdev": "env-cmd -f ./.env nodemon --watch app --exec babel-node app/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,17 +22,17 @@
   },
   "homepage": "https://github.com/muskify/backend#readme",
   "devDependencies": {
-    "@babel/core": "7.5.5",
-    "@babel/node": "7.5.5",
-    "@babel/plugin-proposal-class-properties": "7.5.5",
-    "@babel/plugin-transform-runtime": "7.5.5",
-    "@babel/preset-env": "7.5.5",
+    "@babel/cli": "^7.0.0-rc.1",
+    "@babel/core": "^7.0.0-rc.1",
+    "@babel/node": "^7.0.0-rc.1",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.0.0-rc.1",
     "babel-plugin-root-import": "6.4.1",
     "env-cmd": "10.0.1",
     "nodemon": "^1.19.4"
   },
   "dependencies": {
-    "@babel/runtime": "7.5.5",
+    "@babel/runtime": "^7.6.3",
     "body-parser": "1.19.0",
     "cors": "2.8.5",
     "env-cmd": "10.0.1",

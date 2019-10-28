@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import graphql from '~/app/graphql'
+
 process.setMaxListeners(Infinity)
 
 const app = express()
